@@ -24,8 +24,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/GenesisKernel/go-genesis/packages/consts"
-	"github.com/GenesisKernel/go-genesis/packages/converter"
+	"github.com/AplaProject/go-apla/packages/consts"
+	"github.com/AplaProject/go-apla/packages/converter"
 
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"

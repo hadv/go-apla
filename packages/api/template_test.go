@@ -25,7 +25,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/GenesisKernel/go-genesis/packages/crypto"
+	"github.com/AplaProject/go-apla/packages/crypto"
 	"github.com/stretchr/testify/assert"
 )
 

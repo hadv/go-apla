@@ -1,7 +1,7 @@
 package migration
 
 import (
-	"github.com/GenesisKernel/go-genesis/packages/consts"
+	"github.com/AplaProject/go-apla/packages/consts"
 
 	version "github.com/hashicorp/go-version"
 	log "github.com/sirupsen/logrus"

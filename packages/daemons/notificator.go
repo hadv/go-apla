@@ -3,7 +3,7 @@ package daemons
 import (
 	"context"
 
-	"github.com/GenesisKernel/go-genesis/packages/notificator"
+	"github.com/AplaProject/go-apla/packages/notificator"
 )
 
 // Notificate is sending notifications

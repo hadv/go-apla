@@ -114,13 +114,13 @@ var ApiPath = `/api/v2/`
 const DefaultConfigFile = "config.toml"
 
 // DefaultWorkdirName name of working directory
-const DefaultWorkdirName = "genesis-data"
+const DefaultWorkdirName = "apla-data"
 
 // DefaultPidFilename is default filename of pid file
-const DefaultPidFilename = "go-genesis.pid"
+const DefaultPidFilename = "go-apla.pid"
 
 // DefaultLockFilename is default filename of lock file
-const DefaultLockFilename = "go-genesis.lock"
+const DefaultLockFilename = "go-apla.lock"
 
 // FirstBlockFilename name of first block binary file
 const FirstBlockFilename = "1block"
@@ -156,4 +156,4 @@ const TCPConnTimeout = 5 * time.Second
 const TxRequestExpire = 1 * time.Minute
 
 // DefaultTempDirName is default name of temporary directory
-const DefaultTempDirName = "genesis-temp"
+const DefaultTempDirName = "apla-temp"
