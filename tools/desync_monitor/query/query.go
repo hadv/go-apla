@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/GenesisKernel/go-genesis/packages/api"
+	"github.com/AplaProject/go-apla/packages/api"
 )
 
 const maxBlockIDEndpoint = "/api/v2/maxblockid"

@@ -27,7 +27,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/GenesisKernel/go-genesis/packages/crypto"
+	"github.com/AplaProject/go-apla/packages/crypto"
 )
 
 func TestNewContracts(t *testing.T) {

@@ -34,12 +34,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/GenesisKernel/go-genesis/packages/conf"
-	"github.com/GenesisKernel/go-genesis/packages/conf/syspar"
-	"github.com/GenesisKernel/go-genesis/packages/consts"
-	"github.com/GenesisKernel/go-genesis/packages/converter"
-	"github.com/GenesisKernel/go-genesis/packages/crypto"
-	"github.com/GenesisKernel/go-genesis/packages/model"
+	"github.com/AplaProject/go-apla/packages/conf"
+	"github.com/AplaProject/go-apla/packages/conf/syspar"
+	"github.com/AplaProject/go-apla/packages/consts"
+	"github.com/AplaProject/go-apla/packages/converter"
+	"github.com/AplaProject/go-apla/packages/crypto"
+	"github.com/AplaProject/go-apla/packages/model"
 	uuid "github.com/satori/go.uuid"
 
 	"github.com/pkg/errors"
@@ -573,11 +573,11 @@ func LockOrDie(dir string) *flock.Flock {
 	f := flock.NewFlock(dir)
 	success, err := f.TryLock()
 	if err != nil {
-		log.WithError(err).Fatal("Locking go-genesis")
+		log.WithError(err).Fatal("Locking go-apla")
 	}
 
 	if !success {
-		log.Fatal("Go-genesis is locked")
+		log.Fatal("Go-apla is is locked")
 	}
 
 	return f

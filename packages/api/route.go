@@ -19,8 +19,8 @@ package api
 import (
 	"strings"
 
-	"github.com/GenesisKernel/go-genesis/packages/consts"
-	"github.com/GenesisKernel/go-genesis/packages/utils/tx"
+	"github.com/AplaProject/go-apla/packages/consts"
+	"github.com/AplaProject/go-apla/packages/utils/tx"
 
 	hr "github.com/julienschmidt/httprouter"
 	log "github.com/sirupsen/logrus"

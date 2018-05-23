@@ -3,11 +3,11 @@ package parser
 import (
 	"errors"
 
-	"github.com/GenesisKernel/go-genesis/packages/conf/syspar"
-	"github.com/GenesisKernel/go-genesis/packages/consts"
-	"github.com/GenesisKernel/go-genesis/packages/service"
-	"github.com/GenesisKernel/go-genesis/packages/utils"
-	"github.com/GenesisKernel/go-genesis/packages/utils/tx"
+	"github.com/AplaProject/go-apla/packages/conf/syspar"
+	"github.com/AplaProject/go-apla/packages/consts"
+	"github.com/AplaProject/go-apla/packages/service"
+	"github.com/AplaProject/go-apla/packages/utils"
+	"github.com/AplaProject/go-apla/packages/utils/tx"
 )
 
 var (

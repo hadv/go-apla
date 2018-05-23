@@ -21,7 +21,7 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/GenesisKernel/go-genesis/packages/consts"
+	"github.com/AplaProject/go-apla/packages/consts"
 
 	log "github.com/sirupsen/logrus"
 )
