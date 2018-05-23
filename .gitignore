@@ -98,9 +98,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-genesis-data
+apla-data
 packages/api/key
-go-genesis
+go-apla
 1block
 NodePrivateKey
 PrivateKey
@@ -123,8 +123,8 @@ tools/update_server/update.pub
 tools/update_server/update_server
 
 .vscode/
-genesis-data/go-genesis.lock
-genesis-data/go-genesis.pid
-genesis-data2/g.lock
-genesis-data2/go-genesis.lock
-genesis-data2/go-genesis.pid
+apla-data/go-apla.lock
+apla-data/go-apla.pid
+apla-data2/g.lock
+apla-data2/go-apla.lock
+apla-data2/go-apla.pid

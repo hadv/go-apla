@@ -3,10 +3,10 @@ package api
 import (
 	"net/http"
 
-	"github.com/GenesisKernel/go-genesis/packages/conf"
+	"github.com/AplaProject/go-apla/packages/conf"
 
-	"github.com/GenesisKernel/go-genesis/packages/consts"
-	"github.com/GenesisKernel/go-genesis/packages/publisher"
+	"github.com/AplaProject/go-apla/packages/consts"
+	"github.com/AplaProject/go-apla/packages/publisher"
 	log "github.com/sirupsen/logrus"
 )
 
