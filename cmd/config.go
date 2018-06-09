@@ -47,7 +47,7 @@ var configCmd = &cobra.Command{
 }
 
 func init() {
-	viper.SetEnvPrefix("GENESIS")
+	viper.SetEnvPrefix("APLA")
 	viper.AutomaticEnv()
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
