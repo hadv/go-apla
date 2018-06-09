@@ -139,18 +139,18 @@ func GetRecordsCountTx(db *DbTransaction, tableName string) (int64, error) {
 
 // ExecSchemaEcosystem is executing ecosystem schema
 func ExecSchemaEcosystem(db *DbTransaction, id int, wallet int64, name string, founder int64) error {
-	err := GetDB(db).Exec(fmt.Sprintf(migration.GetEcosystemScript(), id, wallet, name, founder)).Error
-	if err != nil {
+	q := fmt.Sprintf(migration.GetEcosystemScript(), id, wallet, name, founder)
+	if err := GetDB(db).Exec(q).Error; err != nil {
 		log.WithFields(log.Fields{"type": consts.DBError, "error": err}).Error("executing ecosystem schema")
 		return err
 	}
 	if id == 1 {
-		err = GetDB(db).Exec(fmt.Sprintf(migration.GetFirstEcosystemScript(), wallet)).Error
-		if err != nil {
+		q = fmt.Sprintf(migration.GetFirstEcosystemScript(), wallet)
+		if err := GetDB(db).Exec(q).Error; err != nil {
 			log.WithFields(log.Fields{"type": consts.DBError, "error": err}).Error("executing first ecosystem schema")
 		}
 	}
-	return err
+	return nil
 }
 
 // ExecSchemaLocalData is executing schema with local data
@@ -215,12 +215,12 @@ func SendTx(txType int64, adminWallet int64, data []byte) ([]byte, error) {
 
 // AlterTableAddColumn is adding column to table
 func AlterTableAddColumn(transaction *DbTransaction, tableName, columnName, columnType string) error {
-	return GetDB(transaction).Exec(`ALTER TABLE "` + tableName + `" ADD COLUMN ` + columnName + ` ` + columnType).Error
+	return GetDB(transaction).Exec(`ALTER TABLE "` + tableName + `" ADD COLUMN "` + columnName + `" ` + columnType).Error
 }
 
 // AlterTableDropColumn is dropping column from table
 func AlterTableDropColumn(tableName, columnName string) error {
-	return DBConn.Exec(`ALTER TABLE "` + tableName + `" DROP COLUMN ` + columnName).Error
+	return DBConn.Exec(`ALTER TABLE "` + tableName + `" DROP COLUMN "` + columnName + `"`).Error
 }
 
 // CreateIndex is creating index on table column

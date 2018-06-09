@@ -82,6 +82,25 @@ func TestNewContracts(t *testing.T) {
 }
 
 var contracts = []smartContract{
+	{`RecCall`, `contract RecCall {
+		data {    }
+		conditions {    }
+		action {
+			var par map
+			CallContract("RecCall", par)
+		}
+	}`, []smartParams{
+		{nil, map[string]string{`error`: `{"type":"panic","error":"there is loop in @1RecCall contract"}`}},
+	}},
+	{`Recursion`, `contract Recursion {
+		data {    }
+		conditions {    }
+		action {
+			Recursion()
+		}
+	}`, []smartParams{
+		{nil, map[string]string{`error`: `{"type":"panic","error":"The contract can't call itself recursively"}`}},
+	}},
 	{`MyTable#rnd#`, `contract MyTable#rnd# {
 		action {
 			NewTable("Name,Columns,ApplicationId,Permissions", "#rnd#1", 
@@ -394,15 +413,33 @@ func TestEditContracts(t *testing.T) {
 
 func TestNewTableWithEmptyName(t *testing.T) {
 	require.NoError(t, keyLogin(1))
-
+	sql1 := `new_column varchar(10); update block_chain set key_id='1234' where id='1' --`
+	sql2 := `new_column varchar(10); update block_chain set key_id='12' where id='1' --`
+	name := randName(`tbl`)
 	form := url.Values{
+		"Name":          {name},
+		"Columns":       {"[{\"name\":\"" + sql1 + "\",\"type\":\"varchar\", \"index\": \"0\", \"conditions\":{\"update\":\"true\", \"read\":\"true\"}}]"},
+		"ApplicationId": {"1"},
+		"Permissions":   {"{\"insert\": \"true\", \"update\" : \"true\", \"new_column\": \"true\"}"},
+	}
+
+	require.NoError(t, postTx("NewTable", &form))
+
+	form = url.Values{"TableName": {name}, "Name": {sql2},
+		"Type": {"varchar"}, "Index": {"0"}, "Permissions": {"true"}}
+	assert.NoError(t, postTx(`NewColumn`, &form))
+
+	form = url.Values{
 		"Name":          {""},
 		"Columns":       {"[{\"name\":\"MyName\",\"type\":\"varchar\", \"index\": \"0\", \"conditions\":{\"update\":\"true\", \"read\":\"true\"}}]"},
 		"ApplicationId": {"1"},
 		"Permissions":   {"{\"insert\": \"true\", \"update\" : \"true\", \"new_column\": \"true\"}"},
 	}
 
-	require.NoError(t, postTx("NewTable", &form))
+	if err := postTx("NewTable", &form); err == nil || err.Error() !=
+		`{"type":"error","error":"Table name cannot be empty"}` {
+		t.Error(`wrong error`, err)
+	}
 }
 
 func TestActivateContracts(t *testing.T) {

@@ -188,6 +188,11 @@ type ExtendData struct {
 	AutoPars map[string]string
 }
 
+// Stacker represents interface for working with call stack
+type Stacker interface {
+	AppendStack(contract string)
+}
+
 // ParseContract gets a state identifier and the name of the contract from the full name like @[id]name
 func ParseContract(in string) (id uint64, name string) {
 	var err error
@@ -280,10 +285,10 @@ func ExecContract(rt *RunTime, name, txs string, params ...interface{}) (interfa
 		}
 	}
 	rt.cost -= CostContract
-	var stackCont func(interface{}, string)
-	if stack, ok := (*rt.extend)[`stack_cont`]; ok && (*rt.extend)[`sc`] != nil {
-		stackCont = stack.(func(interface{}, string))
-		stackCont((*rt.extend)[`sc`], name)
+
+	var stack Stacker
+	if stack, ok = (*rt.extend)["sc"].(Stacker); ok {
+		stack.AppendStack(name)
 	}
 	if (*rt.extend)[`sc`] != nil && isSignature {
 		obj := rt.vm.Objects[`check_signature`]
@@ -305,8 +310,8 @@ func ExecContract(rt *RunTime, name, txs string, params ...interface{}) (interfa
 			}
 		}
 	}
-	if stackCont != nil {
-		stackCont((*rt.extend)[`sc`], ``)
+	if stack != nil {
+		stack.AppendStack("")
 	}
 	(*rt.extend)[`parent`] = prevparent
 	(*rt.extend)[`this_contract`] = prevthis
@@ -332,11 +337,17 @@ func NewVM() *VM {
 	vm.Objects = make(map[string]*ObjInfo)
 	// Reserved 256 indexes for system purposes
 	vm.Children = make(Blocks, 256, 1024)
-	vm.Extend(&ExtendData{map[string]interface{}{"ExecContract": ExecContract, "CallContract": ExContract,
-		"Settings": GetSettings},
+	vm.Extend(&ExtendData{
+		map[string]interface{}{
+			"ExecContract": ExecContract,
+			"CallContract": ExContract,
+			"Settings":     GetSettings,
+			"MemoryUsage":  MemoryUsage,
+		},
 		map[string]string{
 			`*script.RunTime`: `rt`,
-		}})
+		},
+	})
 	vm.logger = log.WithFields(log.Fields{"extern": vm.Extern, "vm_block_type": vm.Block.Type})
 	return &vm
 }
@@ -503,4 +514,8 @@ func GetSettings(rt *RunTime, cntname, name string) (interface{}, error) {
 		}
 	}
 	return ``, nil
+}
+
+func MemoryUsage(rt *RunTime) int64 {
+	return rt.mem
 }
