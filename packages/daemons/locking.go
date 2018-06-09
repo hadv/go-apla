@@ -7,6 +7,7 @@ import (
 
 	"github.com/AplaProject/go-apla/packages/consts"
 	"github.com/AplaProject/go-apla/packages/model"
+	"github.com/AplaProject/go-apla/packages/parser"
 
 	log "github.com/sirupsen/logrus"
 )
